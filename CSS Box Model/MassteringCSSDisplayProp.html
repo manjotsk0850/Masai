@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Display Properties Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .block-element {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: lightblue;
+        }
+        .inline-element {
+            display: inline;
+            background-color: lightcoral;
+            padding: 5px;
+            border: 1px solid black;
+        }
+        .inline-block-element {
+            display: inline-block;
+            width: 150px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: lightgreen;
+            margin: 10px;
+        }
+        .hidden-element {
+            display: none;
+            background-color: lightgray;
+            padding: 10px;
+            border: 2px solid black;
+        }
+        .toggle-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            background-color: darkblue;
+            color: white;
+        }
+    </style>
+    <script>
+        function toggleVisibility() {
+            const hiddenEl = document.getElementById('hidden-element');
+            hiddenEl.style.display = hiddenEl.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <h2>CSS Display Properties Demo</h2>
+    <div class="block-element">Block Element</div>
+    <span class="inline-element">Inline Element</span>
+    <div class="inline-block-element">Inline-Block Element</div>
+    <div id="hidden-element" class="hidden-element">Hidden Element (Toggled)</div>
+    <button class="toggle-btn" onclick="toggleVisibility()">Toggle Hidden Element</button>
+</body>
+</html>
