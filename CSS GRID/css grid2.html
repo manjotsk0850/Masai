@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #9370DB;
+    margin: 0;
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Equal width columns */
+    grid-template-rows: 1fr 1fr; /* Equal height rows */
+    gap: 10px;
+    width: 60%;
+    height: 60vh;
+}
+
+/* Grid Items */
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    border: 2px solid black;
+    
+}
+
+/* Specific Grid Positioning */
+#item1 {
+    background-color: rgb(1, 1, 172);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+#item4 {
+    background-color: #FF5733;
+    grid-column: 1 / 3; /* Span two columns */
+    grid-row: 1 / 2;
+    height: 100%; /* Stretch across grid */
+    
+}
+
+#item5 {
+    background-color: #8B4513;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+#item6 {
+    background-color: #FFC0CB;
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+}
+
+/* Ensuring Item 1 and Item 5 are Perfect Squares */
+.item1, .item5 {
+    aspect-ratio: 1 / 1; /* Makes them square */
+}
+</style>
+    <div class="grid-container">
+        <div class="grid-item" id="item1">1</div>
+        <div class="grid-item" id="item4">4</div>
+        <div class="grid-item" id="item5">5</div>
+        <div class="grid-item" id="item6">6</div>
+    </div>
+
+</body>
+</html>
