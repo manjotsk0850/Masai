@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .box h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .grid-item {
+            text-align: center;
+        }
+
+        .grid-item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .grid-item p {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: teal;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Section -->
+        <div class="box">
+            <h2>Revamp your home in style</h2>
+            <div class="grid">
+                <div class="grid-item">
+                    <img src="image1.jpg" alt="Cushion covers">
+                    <p>Cushion covers, bedsheets & more</p>
+                </div>
+                <div class="grid-item">
+                    <img src="image2.jpg" alt="Figurines">
+                    <p>Figurines, vases & more</p>
+                </div>
+                <div class="grid-item">
+                    <img src="image3.jpg" alt="Home storage">
+                    <p>Home storage</p>
+                </div>
+                <div class="grid-item">
+                    <img src="image4.jpg" alt="Lighting solutions">
+                    <p>Lighting solutions</p>
+                </div>
+            </div>
+            <a href="#" class="link">Explore all</a>
+        </div>
+
+        <!-- Right Section -->
+        <div class="box">
+            <h2>Starting ₹149 | Headphones</h2>
+            <div class="grid">
+                <div class="grid-item">
+                    <img src="logo1.jpg" alt="boAt">
+                    <p>Starting ₹249 | boAt</p>
+                </div>
+                <div class="grid-item">
+                    <img src="logo2.jpg" alt="Boult">
+                    <p>Starting ₹349 | boult</p>
+                </div>
+                <div class="grid-item">
+                    <img src="logo3.jpg" alt="Noise">
+                    <p>Starting ₹649 | Noise</p>
+                </div>
+                <div class="grid-item">
+                    <img src="logo4.jpg" alt="Zebronics">
+                    <p>Starting ₹149 | Zebronics</p>
+                </div>
+            </div>
+            <a href="#" class="link">See all offers</a>
+        </div>
+    </div>
+
+</body>
+</html>
