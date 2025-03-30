@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <style>
+        body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+.container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+    </style>
     <h1 id="title">Original Heading</h1>
 
     <p>This is the first paragraph.</p>
@@ -22,7 +34,26 @@
         <p>This paragraph is outside the container div.</p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const mainTitle = document.getElementById('title');
+if (mainTitle) {
+    mainTitle.textContent = "Welcome to the DOM World!";
+} else {
+    console.error("<h1> element with id 'main-title' not found.");
+}
+
+const paragraphs = document.getElementsByTagName('p');
+for (let i = 0; i < paragraphs.length; i++) {
+    paragraphs[i].style.color = 'blue';
+}
+
+const containerDiv = document.querySelector('div.container');
+if (containerDiv) {
+    containerDiv.style.backgroundColor = 'yellow';
+} else {
+    console.error("First <div> with class 'container' not found.");
+}
+    </script>
     
 </body>
 </html>
