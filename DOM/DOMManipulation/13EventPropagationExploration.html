@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L1 - Event Propagation Exploration</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        #outer-div {
+            background-color: #f0f8ff; 
+            padding: 20px;
+            border: 1px solid #add8e6; 
+        }
+
+        #middle-div {
+            background-color: #e0ffff; 
+            padding: 15px;
+            border: 1px solid #8fbc8f; 
+        }
+
+        #inner-div {
+            background-color: #f5f5dc; 
+            padding: 10px;
+            border: 1px solid #a9a9a9; 
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Propagation Exploration</h1>
+
+    <div id="outer-div">
+        Outer Div
+        <div id="middle-div">
+            Middle Div
+            <div id="inner-div">
+                Inner Div
+                <button id="inner-button">Click Me (Stop Propagation)</button>
+            </div>
+            <button id="middle-button">Click Me</button>
+        </div>
+        <button id="outer-button">Click Me</button>
+    </div>
+
+    <script>
+        const outerDiv = document.getElementById('outer-div');
+        const middleDiv = document.getElementById('middle-div');
+        const innerDiv = document.getElementById('inner-div');
+        const outerButton = document.getElementById('outer-button');
+        const middleButton = document.getElementById('middle-button');
+        const innerButton = document.getElementById('inner-button');
+
+        outerDiv.addEventListener('click', function() {
+            alert('Outer Div Clicked (Capturing)');
+        }, true);
+
+        middleDiv.addEventListener('click', function() {
+            alert('Middle Div Clicked (Capturing)');
+        }, true);
+
+        innerDiv.addEventListener('click', function() {
+            alert('Inner Div Clicked (Capturing)');
+        }, true);
+
+        outerButton.addEventListener('click', function() {
+            alert('Outer Button Clicked (Capturing)');
+        }, true);
+
+        middleButton.addEventListener('click', function() {
+            alert('Middle Button Clicked (Capturing)');
+        }, true);
+
+        innerButton.addEventListener('click', function(event) {
+            alert('Inner Button Clicked (Capturing - Stopping Propagation)');
+            event.stopPropagation();
+        }, true);
+
+        outerDiv.addEventListener('click', function() {
+            alert('Outer Div Clicked (Bubbling)');
+        });
+
+        middleDiv.addEventListener('click', function() {
+            alert('Middle Div Clicked (Bubbling)');
+        });
+
+        innerDiv.addEventListener('click', function() {
+            alert('Inner Div Clicked (Bubbling)');
+        });
+
+        outerButton.addEventListener('click', function() {
+            alert('Outer Button Clicked (Bubbling)');
+        });
+
+        middleButton.addEventListener('click', function() {
+            alert('Middle Button Clicked (Bubbling)');
+        });
+
+        innerButton.addEventListener('click', function() {
+            alert('Inner Button Clicked (Bubbling)');
+        });
+    </script>
+</body>
+</html>
