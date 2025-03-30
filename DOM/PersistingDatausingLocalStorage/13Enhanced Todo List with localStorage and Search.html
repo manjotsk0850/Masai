@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L1 - Enhanced Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#taskInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+#addTaskBtn {
+    padding: 10px 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#addTaskBtn:hover {
+    background-color: #4cae4c;
+}
+
+.search-group {
+    margin-bottom: 15px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#taskList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item label {
+    flex-grow: 1;
+    padding-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.task-item .delete-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.task-item .delete-btn:hover {
+    background-color: #c9302c;
+}
+
+.task-item input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.task-item .completed {
+    text-decoration: line-through;
+    color: #777;
+}
+    </style>
+    <div class="container">
+        <h1>My Todo List</h1>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Add new task...">
+            <button id="addTaskBtn">Add</button>
+        </div>
+
+        <div class="search-group">
+            <input type="text" id="searchInput" placeholder="Search tasks...">
+        </div>
+
+        <ul id="taskList">
+            </ul>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const searchInput = document.getElementById('searchInput');
+        const taskList = document.getElementById('taskList');
+        const LOCAL_STORAGE_KEY = 'todos';
+        let todos = loadTodos();
+    
+        function loadTodos() {
+            const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+            return storedTodos ? JSON.parse(storedTodos) : [];
+        }
+
+        function saveTodos() {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+        }
+
+        function renderTodos(filterText = '') {
+            taskList.innerHTML = '';
+            const filteredTodos = todos.filter(todo =>
+                todo.text.toLowerCase().includes(filterText.toLowerCase())
+            );
+    
+            filteredTodos.forEach(todo => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('task-item');
+                listItem.innerHTML = `
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''} data-id="${todo.id}">
+                    <label data-id="${todo.id}" class="${todo.completed ? 'completed' : ''}">${todo.text}</label>
+                    <button class="delete-btn" data-id="${todo.id}">Delete</button>
+                `;
+                taskList.appendChild(listItem);
+            });
+        }
+    
+        renderTodos();
+    
+    
+        addTaskBtn.addEventListener('click', () => {
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                const newTodo = {
+                    id: Date.now(),
+                    text: taskText,
+                    completed: false,
+                };
+                todos.push(newTodo);
+                saveTodos();
+                renderTodos(searchInput.value);
+                taskInput.value = '';
+            }
+        });
+        taskList.addEventListener('click', (event) => {
+            const target = event.target;
+            const taskId = parseInt(target.dataset.id);
+    
+            if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+                todos = todos.map(todo =>
+                    todo.id === taskId ? { ...todo, completed: !todo.completed } : todo
+                );
+                saveTodos();
+                renderTodos(searchInput.value);
+            }
+    
+            if (target.classList.contains('delete-btn')) {
+                todos = todos.filter(todo => todo.id !== taskId);
+                saveTodos();
+                renderTodos(searchInput.value);
+            }
+    
+            if (target.tagName === 'LABEL') {
+                todos = todos.map(todo =>
+                    todo.id === taskId ? { ...todo, completed: !todo.completed } : todo
+                );
+                saveTodos();
+                renderTodos(searchInput.value);
+            }
+        });
+        searchInput.addEventListener('input', () => {
+            renderTodos(searchInput.value);
+        });
+    });</script>
+</body>
+</html>

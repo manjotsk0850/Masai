@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L2 - Multi-User Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Multi-User Shopping Cart</h1>
+
+        <div id="login-section">
+            <h2>Login</h2>
+            <input type="text" id="usernameInput" placeholder="Enter your username">
+            <button id="loginBtn">Log In</button>
+            <p id="loginError" class="error-message"></p>
+        </div>
+
+        <div id="app-section" style="display: none;">
+            <h2>Shopping Cart for <span id="current-user"></span></h2>
+
+            <div id="add-item-section">
+                <h3>Add New Item</h3>
+                <input type="text" id="newItemName" placeholder="Item Name">
+                <input type="number" id="newItemPrice" placeholder="Price" min="0">
+                <input type="number" id="newItemQuantity" placeholder="Quantity" min="1" value="1">
+                <button id="addItemBtn">Add to Cart</button>
+                <p id="addItemError" class="error-message"></p>
+            </div>
+
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                        <td id="cart-total">0</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <button id="logoutBtn">Log Out</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
