@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Movie Search</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+        #results {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 320px;
+        }
+        .movie-title{
+          padding: 5px;
+          border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="movie-search" placeholder="Search for a movie...">
+    <div id="results"></div>
+
+    <script>
+        const searchInput = document.getElementById('movie-search');
+        const resultsContainer = document.getElementById('results');
+        let timeoutId;
+        const apiKey = 'YOUR_API_KEY'; // Replace with your OMDB API key
+
+        function fetchMovies(query) {
+            if (!query) {
+                resultsContainer.innerHTML = ''; // Clear results if query is empty
+                return;
+            }
+
+            const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.Search) {
+                        let resultsHTML = '';
+                        data.Search.forEach(movie => {
+                            resultsHTML += `<div class="movie-title">${movie.Title}</div>`;
+                        });
+                        resultsContainer.innerHTML = resultsHTML;
+                    } else {
+                        resultsContainer.innerHTML = 'No movies found.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching movies:', error);
+                    resultsContainer.innerHTML = 'Error fetching data.';
+                });
+        }
+
+        function handleSearch(event) {
+            clearTimeout(timeoutId); // Clear previous timeout
+            timeoutId = setTimeout(() => {
+                fetchMovies(event.target.value);
+            }, 500);
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+    </script>
+</body>
+</html>
